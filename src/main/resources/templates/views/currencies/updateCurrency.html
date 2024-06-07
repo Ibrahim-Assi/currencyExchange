@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+<head>
+    <!--/*/ <th:block th:insert="~{fragments/head :: head}"></th:block> /*/-->
+</head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <!--/*/ <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block> /*/-->
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+            <!-- header -->
+            <header>
+                <!--/*/ <th:block th:insert="~{fragments/header :: header}"></th:block> /*/-->
+            </header>
+            <!-- End of header -->
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h4 class="h3 mb-0 text-gray-800">تعديل عملة</h4>
+                </div>
+
+                <!--/*/ <th:block th:insert="~{fragments/header :: message}"></th:block> /*/-->
+                <!-- Content  ********************************************************** -->
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12">
+                        <form  class="form theme-form" action="#" th:action="@{/admin/currencies/updateCurrency}" th:object="${currencyDTO}" method="post">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">اسعار </h6>
+                            </div>
+                            <div class="card-body">
+
+                                    <div class="card-body custom-input">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3 row">
+                                                    <label class="col-sm-2">العملة بالعربي</label>
+                                                    <div class="col-sm-4">
+                                                        <input class="form-control" type="text"  th:field="*{currArName}"   required/>
+                                                    </div>
+                                                    <label class="col-sm-2">الجزء بالعربي</label>
+                                                    <div class="col-sm-4">
+                                                        <input class="form-control" type="text" th:field="*{currPartArName}"   required/>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label class="col-sm-2">العملة بالانجليزي</label>
+                                                    <div class="col-sm-4">
+                                                        <input class="form-control" type="text" th:field="*{currEnName}"   required/>
+                                                    </div>
+                                                    <label class="col-sm-2">الجزء بالانجليزي</label>
+                                                    <div class="col-sm-4">
+                                                        <input class="form-control" type="text" th:field="*{currPartEnName}"   required/>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label class="col-sm-2">رمز العملة</label>
+                                                    <div class="col-sm-4">
+                                                        <input class="form-control" type="text" th:field="*{currCode}"  readonly required />
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label class="col-sm-2">اقل سعر</label>
+                                                    <div class="col-sm-4">
+                                                        <input class="form-control" type="number"  th:attr="step='0.01'" th:field="*{minRate}"   required/>
+                                                    </div>
+                                                    <label class="col-sm-2">اعلى سعر</label>
+                                                    <div class="col-sm-4">
+                                                        <input class="form-control" type="number"  th:attr="step='0.01'" th:field="*{maxRate}" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-light" th:href="${'/admin/currencies/currenciesList'}">عودة</a>
+                                <button class="btn btn-primary me-3" type="submit">حفظ</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Content  ********************************************************** -->
+
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <!--/*/ <th:block th:insert="~{fragments/footer :: footer}"></th:block> /*/-->
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+</body>
+</html>
+
+
+
+
+
+

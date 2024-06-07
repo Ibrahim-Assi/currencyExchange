@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+<head>
+    <!--/*/ <th:block th:insert="~{fragments/head :: head}"></th:block> /*/-->
+</head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <!--/*/ <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block> /*/-->
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+            <!-- header -->
+            <header>
+                <!--/*/ <th:block th:insert="~{fragments/header :: header}"></th:block> /*/-->
+            </header>
+            <!-- End of header -->
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h4 class="h3 mb-0 text-gray-800">العملات</h4>
+                </div>
+
+                <!--/*/ <th:block th:insert="~{fragments/header :: message}"></th:block> /*/-->
+                <!-- Content  ********************************************************** -->
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">قائمة العملات </h6>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">العملة بالعربي</th>
+                                        <th class="text-center">العملة بالانجليزي</th>
+                                        <th class="text-center">الرمز</th>
+                                        <th class="text-center"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="currency:${currencies}">
+                                        <td class="text-right" th:text="${currency.currArName}"></td>
+                                        <td class="text-left" th:text="${currency.currEnName}"></td>
+                                        <td class="text-center" th:text="${currency.currCode}"></td>
+                                        <td class="text-center">
+                                            <a    th:href="'javascript:deleteCurrency(\'' + ${currency.currCode} + '\');'"  class="btn btn-danger btn-circle btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <a  th:href="@{/admin/currencies/updateCurrency/{currCode}(currCode=${currency.currCode})}"  class="btn btn-success btn-circle btn-sm">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-primary  pull-left" th:href="@{/admin/currencies/createCurrency}" ><i class="fa fa-plus-square"></i>&nbsp;اضافة عملة جديدة</a>
+                                &nbsp; &nbsp; &nbsp;
+                                <a class="btn btn-primary  pull-left m-r-30" th:target="_blank" th:href="@{/admin/currencies/printCurrencyReport}" target="_blank"><i class="fa fa-print"></i>&nbsp;طباعة</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content  ********************************************************** -->
+
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <!--/*/ <th:block th:insert="~{fragments/footer :: footer}"></th:block> /*/-->
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+<script>
+    function deleteCurrency(currCode){
+        if(confirm('هل انت متأكد من الحذف')){
+            var url = '/admin/currencies/deleteCurrency/' + currCode;
+            window.location.href = url;
+        }
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

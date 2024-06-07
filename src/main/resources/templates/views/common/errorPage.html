@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="rtl">
+<head>  <!--/*/ <th:block th:insert="~{fragments/head :: head}"></th:block> /*/--></head>
+<body >
+<div class="tap-top"><i data-feather="chevrons-up"></i></div>
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <header> <!--/*/ <th:block th:insert="~{fragments/header :: header}"></th:block> /*/--> </header>
+    <div class="page-body-wrapper">
+        <div> <!--/*/ <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block> /*/--> </div>
+        <div class="page-body">
+            <div class="container-fluid">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4>خطأ</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Container-fluid starts ------------------------------------------------------------------------------->
+            <div class="container-fluid">
+                <div class="row widget-grid">
+                    <div class="col-xxl-12 col-sm-12 box-col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!--/*/ <th:block th:insert="~{fragments/header :: message}"></th:block> /*/-->
+                            </div>
+                            <div class="card-footer text-end">
+                                <div class="row">
+                                    <div class="col-sm-8"></div>
+                                    <div class="col-sm-4">
+                                        <a class="btn btn-primary  pull-left"  href="javascript:history.back()" ><i class="fa fa-arrow-rotate-right"></i>&nbsp;عودة</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Container-fluid Ends---------------------------------------------------------------------------------->
+    </div>
+    <footer class="footer"> <!--/*/ <th:block th:insert="~{fragments/footer :: footer}"></th:block> /*/-->  </footer>
+</div>
+
+</body>
+</html>

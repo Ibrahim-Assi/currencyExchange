@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<!-- Sidebar -->
+<ul th:fragment="sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+    xmlns:sec="http://www.w3.org/1999/xhtml">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Currency Exchange</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="/dashboard">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        تعريفات
+    </div>
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_ACCOUNTANT')"  >
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>تعريفات اساسية</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item"  sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/admin/banks/banksList'}">بنوك العامة</a>
+                <a class="collapse-item"  sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_ACCOUNTANT')" th:href="${'/admin/currencies/currenciesList'}">العملات</a>
+                <a class="collapse-item"  sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_ACCOUNTANT')" th:href="${'/admin/currencies/currencyRateList'}">اسعار العملات</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- ..........................................................................................  -->
+<!--    &lt;!&ndash; Divider &ndash;&gt;-->
+<!--    <hr class="sidebar-divider">-->
+<!--    &lt;!&ndash; Heading &ndash;&gt;-->
+<!--    <div class="sidebar-heading">-->
+<!--        الحماية-->
+<!--    </div>-->
+
+<!--    <li class="nav-item">-->
+<!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3"-->
+<!--           aria-expanded="true" aria-controls="collapse3">-->
+<!--            <i class="fas fa-fw fa-cog"></i>-->
+<!--            <span>نظام الحماية</span>-->
+<!--        </a>-->
+<!--        <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
+<!--            <div class="bg-white py-2 collapse-inner rounded">-->
+<!--                <a class="collapse-item"  th:href="${'/admin/role/roleList'}">مجموعات الصلاحيات</a>-->
+<!--                <a class="collapse-item"  th:href="${'/admin/privilege/privilegeList'}">الصلاحيات</a>-->
+<!--                <a class="collapse-item"  th:href="${'/admin/users/usersList'}">ادارة المستخدمين</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </li>-->
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+</ul>
+<!-- End of Sidebar -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

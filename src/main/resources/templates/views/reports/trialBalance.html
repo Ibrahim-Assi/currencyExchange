@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="rtl">
+<head>
+  <!--/*/ <th:block th:insert="~{fragments/head :: head}"></th:block> /*/-->
+</head>
+<body >
+<!-- tap on top starts-->
+<div class="tap-top"><i data-feather="chevrons-up"></i></div>
+<!-- tap on tap ends-->
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+  <!-- Page Header Start-->
+  <header>
+    <!--/*/ <th:block th:insert="~{fragments/header :: header}"></th:block> /*/-->
+  </header>
+  <!-- Page Header Ends                              -->
+  <!-- Page Body Start-->
+  <div class="page-body-wrapper">
+    <!-- Page Sidebar Start-->
+    <div>
+      <!--/*/ <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block> /*/-->
+    </div>
+    <!-- Page Sidebar Ends-->
+    <div class="page-body">
+      <div class="container-fluid">
+        <div class="page-title">
+          <div class="row">
+            <div class="col-6">
+              <h4>ميزان المراجعة</h4>
+            </div>
+            <div class="col-6">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/dashboard"><i class="fa fa-home fa-lg"></i></a></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Container-fluid   ------------------------------------------------------------------------------->
+      <div class="container-fluid">
+        <div class="row widget-grid">
+          <div class="col-xxl-12 col-sm-12 box-col-12">
+            <!--/*/ <th:block th:insert="~{fragments/header :: message}"></th:block> /*/-->
+            <div class="card">
+              <form class="form theme-form" th:action="@{/admin/reports/trialBlance}" th:object="${glTrailBalancedto}" method="get">
+                <div class="card-body custom-input">
+                  <div class="row">
+                    <div class="col">
+                      <div class="mb-3 row">
+                        <label class="col-sm-2">الحساب</label>
+                        <div class="col-sm-4">
+                          <select class="form-select"  th:field="*{accountNo}"required>
+
+                            <option th:each="account : ${accountsLeafList}"
+                                    th:value="${account.getAccNo()}"
+                                    th:text="${account.getAccArName()}">
+                            </option>
+                          </select>
+                        </div>
+                        <label class="col-sm-2">الفرع</label>
+                        <div class="col-sm-4">
+                          <select class="form-select"  th:field="*{centerNo}" required>
+                            <option th:each="center : ${userCentersList}"
+                                    th:value="${center.getValue()}"
+                                    th:text="${center.getValueLabel()}">
+                            </option>
+                          </select>
+                        </div>
+
+                      </div>
+
+
+
+                      <div class="mb-3 row">
+                        <label class="col-sm-2">من تاريخ</label>
+                        <div class="col-sm-4">
+
+                          <div class="input-group flatpicker-calender">
+                            <input class="form-control calendar-datePicker" type="text" th:field="*{fromVoucherDate}" required/>
+                          </div>
+
+                        </div>
+                        <label class="col-sm-2">الى تاريخ</label>
+                        <div class="col-sm-4">
+                          <div class="input-group flatpicker-calender">
+                            <input class="form-control calendar-datePicker" type="text" th:field="*{toVoucherDate}" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label class="col-sm-2">الحالة</label>
+                        <div class="col-sm-4">
+                          <select class= "form-select" id="status"  th:field="*{voucherStatus}">
+                            <option th:each="status : ${voucherStatusList}"
+                                    th:value="${status.getValue()}"
+                                    th:text="${status.getLabel()}">
+                            </option>
+                          </select>
+
+
+                        </div>
+
+                      </div>
+                      <div class="mb-3 row">
+                        <label class="col-sm-2">نوع السند</label>
+                        <div class="col-sm-4">
+                          <select class= "form-select" th:field="*{voucherType}">
+                            <option value="ALL"> جميع السندات</option>
+                            <option th:each="type : ${voucherTypeList}"
+                                    th:value="${type.getValue()}"
+                                    th:text="${type.getLabel()}">
+                            </option>
+                          </select>
+
+
+                        </div>
+
+                      </div>
+
+
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="card-footer text-end">
+                  <div class="col-sm-9 offset-sm-3">
+                    <a class="btn btn-light" th:href="${'/dashboard'}">عودة</a>
+                    <button class="btn btn-primary me-3" type="submit">طباعة</button>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Container-fluid   ------------------------------------------------------------------------------->
+    </div>
+  </div>
+  <!-- footer start-->
+  <footer class="footer">
+    <!--/*/ <th:block th:insert="~{fragments/footer :: footer}"></th:block> /*/-->
+  </footer>
+</div>
+</div>
+
+</body>
+</html>

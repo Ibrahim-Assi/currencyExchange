@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="rtl">
+<head>  <!--/*/ <th:block th:insert="~{fragments/head :: head}"></th:block> /*/-->
+    <style>
+        /* The message box is shown when the user clicks on the password field */
+        #message {
+            display: none;
+            background: #f1f1f1;
+            color: #000;
+            position: relative;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        #message p {
+            padding: 10px 35px;
+            font-size: 12px;
+        }
+
+        /* Add a green text color and a checkmark when the requirements are right */
+        .valid {
+            color: green;
+        }
+
+        .valid:after {
+            position: relative;
+            right: 10px;
+            content: "✔";
+        }
+
+        /* Add a red text color and an "x" when the requirements are wrong */
+        .invalid {
+            color: red;
+        }
+
+        .invalid:after {
+            position: relative;
+            right: 10px;
+            content: "✖";
+        }
+    </style>
+</head>
+<body>
+<!-- tap on top starts-->
+<div class="tap-top"><i data-feather="chevrons-up"></i></div>
+<!-- tap on tap ends-->
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <header> <!--/*/ <th:block th:insert="~{fragments/header :: header}"></th:block> /*/--> </header>
+    <!-- Page Header Ends                              -->
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <div> <!--/*/ <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block> /*/--> </div>
+        <!-- Page Sidebar Ends-->
+        <div class="page-body">
+            <div class="container-fluid">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4>تعديل بيانات مستخدم</h4>
+                        </div>
+                        <div class="col-6">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/dashboard"><i class="fa fa-home fa-lg"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="/admin/users/usersList">قائمة المستخدمين</a></li>
+                                <li class="breadcrumb-item">تعديل بيانات مستخدم</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Container-fluid   ------------------------------------------------------------------------------->
+            <div class="container-fluid">
+                <div class="row widget-grid">
+                    <div class="col-xxl-12 col-sm-12 box-col-12">
+                        <!--/*/ <th:block th:insert="~{fragments/header :: message}"></th:block> /*/-->
+                        <div class="card">
+                            <form class="form theme-form" th:action="@{/admin/users/updateUser}" th:object="${userDTO}"
+                                  method="post">
+                                <input type="hidden" th:field="*{userId}">
+                                <div class="card-body custom-input">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4">اسم المستخدم(الايميل)</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" type="email" th:field="*{email}"
+                                                           required/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4">الاسم الاول</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" type="text" th:field="*{firstName}"
+                                                           required/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4">الاسم الاخير</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" type="text" th:field="*{lastName}"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4">رقم المحمول</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" type="tel" pattern="(?=.*[0-9]).{10,}"
+                                                           title="يجب أن يتكون رقم الهاتف من 10 أرقام على الأقل"
+                                                           th:field="*{mobileNumber}"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4">كلمة المرور</label>
+                                                <div class="col-sm-8">
+                                                    <input id="newPassword" class="form-control" type="password"
+                                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                           title="يجب أن تتكون كلمة المرور من 8 أحرف (أحرف كبيرة وصغيرة وأرقام)"
+                                                           th:field="*{newPassword}"
+                                                           onchange="this.setCustomValidity(this.validity.patternMismatch ? 'يجب أن لاتقل حروف كلمة المرور عن 8 حروف، وتتكون من أرقام وحروف صغيرة وحروف كبيرة. ' : ''); if(this.checkValidity()) form.password_two.pattern = this.value;"
+                                                           placeholder="كلمة المرور" required/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4">تأكيد كلمة المرور</label>
+                                                <div class="col-sm-8">
+                                                    <input id="newPasswordMatch" class="form-control" type="password"
+                                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                           title="يجب أن تتكون كلمة المرور من 8 أحرف (أحرف كبيرة وصغيرة وأرقام)"
+                                                           th:field="*{newPasswordMatch}"
+                                                           onchange="this.setCustomValidity(this.validity.patternMismatch ? 'أدخل نفس الكلمة التي ادخلتها في حقل كلمة المرور. ' : '');"
+                                                           placeholder="تأكيد كلمة المرور" required/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <div class="col-sm-4"></div>
+                                                <label class="col-sm-2">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           th:field="*{enabled}" checked/>
+                                                    <span>&nbsp;فعال</span>
+                                                </label>
+                                                <label class="col-sm-6">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           th:field="*{requirePwdChange}" checked/>
+                                                    <span>&nbsp;فرض تغييرها عند تسجيل الدخول لاول مرة</span>
+                                                </label>
+                                            </div>
+
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4">الفرع</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" name="centerIds" multiple="multiple"
+                                                            title="يجب اختيار الفرع الذي يتبع له المستخدم" required>
+                                                        <option th:each="center : ${centersList}"
+                                                                th:value="${center.getCenterNo()}"
+                                                                th:text="${center.getCenterAName()}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4">الصلاحيات</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" name="roleIds" multiple
+                                                            title="يجب اختيار صلاحيات المستخدم" required>
+                                                        <option th:each="role : ${rolesList}"
+                                                                th:value="${role.getId()}"
+                                                                th:text="${role.getDescription()}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div id="message" class="card alert alert-light-primary" role="alert">
+                                                <h5 class="alert-heading">يجب أن تحتوي كلمة المرور على التالي:</h5>
+                                                <p id="letter" class="invalid"><b>أحرف صغيرة</b></p>
+                                                <p id="capital" class="invalid"><b>أحرف كبيرة</b></p>
+                                                <p id="number" class="invalid"><b>أرقام</b></p>
+                                                <p id="length" class="invalid"><b>8 حروف على الأقل</b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-end">
+                                    <div class="col-sm-9 offset-sm-3">
+                                        <a class="btn btn-light" th:href="${'/admin/users/usersList'}">عودة</a>
+                                        <button class="btn btn-primary me-3" type="submit">حفظ</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Container-fluid   ------------------------------------------------------------------------------->
+        </div>
+    </div>
+    <!-- footer start-->
+    <footer class="footer"> <!--/*/ <th:block th:insert="~{fragments/footer :: footer}"></th:block> /*/-->  </footer>
+
+</div>
+<script>
+    var myInput = document.getElementById("newPassword");
+    var myInputMatch = document.getElementById("newPasswordMatch");
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function () {
+        document.getElementById("message").style.display = "block";
+    }
+
+    // When the user clicks outside the password field, hide the message box
+    myInput.onblur = function () {
+        document.getElementById("message").style.display = "none";
+    }
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function () {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if (myInput.value.match(lowerCaseLetters)) {
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+        } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if (myInput.value.match(upperCaseLetters)) {
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+        } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+        }
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if (myInput.value.match(numbers)) {
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+        } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+        }
+
+        // Validate length
+        if (myInput.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+    }
+</script>
+</body>
+</html>
