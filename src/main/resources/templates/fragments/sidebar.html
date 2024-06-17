@@ -41,6 +41,7 @@
                 <a class="collapse-item"  sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/admin/banks/banksList'}">بنوك العامة</a>
                 <a class="collapse-item"  sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_ACCOUNTANT')" th:href="${'/admin/currencies/currenciesList'}">العملات</a>
                 <a class="collapse-item"  sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_ACCOUNTANT')" th:href="${'/admin/currencies/currencyRateList'}">اسعار العملات</a>
+                <a class="collapse-item"  th:href="${'/admin/files/viewFiles'}">الملفات</a>
             </div>
         </div>
     </li>

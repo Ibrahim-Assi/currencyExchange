@@ -81,5 +81,7 @@ bankBranches:
   excel:
     path: src/main/resources/excel/bankBranches.xlsx
 
+attachmentFiles:
+  path: C:\ex
 
 

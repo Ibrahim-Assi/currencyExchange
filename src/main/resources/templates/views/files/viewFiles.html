@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+<head>
+  <!--/*/ <th:block th:insert="~{fragments/head :: head}"></th:block> /*/-->
+</head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <!--/*/ <th:block th:insert="~{fragments/sidebar :: sidebar}"></th:block> /*/-->
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+      <!-- header -->
+      <header>
+        <!--/*/ <th:block th:insert="~{fragments/header :: header}"></th:block> /*/-->
+      </header>
+      <!-- End of header -->
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h4 class="h3 mb-0 text-gray-800">الملفات</h4>
+        </div>
+
+        <!--/*/ <th:block th:insert="~{fragments/header :: message}"></th:block> /*/-->
+        <!-- Content  ********************************************************** -->
+
+        <div class="row">
+          <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">قائمة الملفات </h6>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive theme-scrollbar">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                      <th class="text-center">رقم الملف</th>
+                      <th class="text-center">اسم المف</th>
+                      <th class="text-center">مسار الملف</th>
+                      <th class="text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="file:${files}">
+                      <td class="text-center" th:text="${file.id}"></td>
+                      <td class="text-right" th:text="${file.fileName}"></td>
+                      <td class="text-left" th:text="${file.filePath}"></td>
+                      <td class="text-center">
+                        <a   th:href="'javascript:deleteRecord(\'' + ${file.id} + '\');'"  class="btn btn-danger btn-circle btn-sm">
+                          <i class="fas fa-trash"></i>
+                        </a> 
+                        <a  th:href="@{/admin/files/downloadFile/{id}(id=${file.id})}"  class="btn btn-info btn-circle btn-sm" target="_blank">
+                          <i class="fas fa-download"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a class="btn btn-primary  pull-left" href="javascript:addFun()" ><i class="fa fa-plus-square"></i>&nbsp;اضافة ملف جديد</a>
+                &nbsp; &nbsp; &nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content  ********************************************************** -->
+
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <!--/*/ <th:block th:insert="~{fragments/footer :: footer}"></th:block> /*/-->
+    <!-- End of Footer -->
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+
+<!--begin::Modal - fileUploadModal Modal ------------------------------------------------------- -->
+<div class="modal fade" id="fileUploadModal" tabindex="-1" aria-hidden="true">
+  <form class="form theme-form" th:action="@{/admin/files/addFile}" method="post" enctype="multipart/form-data">
+  <!--begin::Modal dialog-->
+  <div class="modal-dialog modal-dialog-centered mw-650px">
+    <!--begin::Modal content-->
+    <div class="modal-content rounded">
+      <!--begin::Modal header-->
+      <div class="modal-header">
+        <!--begin::Close-->
+        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+          <i class="ki-duotone ki-cross fs-1">
+            <span class="path1"></span>
+            <span class="path2"></span>
+          </i>
+        </div>
+        <!--end::Close-->
+      </div>
+      <!--end::Modal header-->
+      <!--begin::Modal body-->
+      <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+        <!--begin:Form-->
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">اختر الملف</h6>
+        </div>
+        <!--begin::Input group-->
+        <div class=" mb-10 fv-row" >
+          <div class="row fv-row ">
+            <div class="col-md-12 p-4">
+              <input type="file" id="attachmentFile" name="attachmentFile"  />
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary me-3" type="submit">حفظ</button>
+        </div>
+
+        <!--end:Form-->
+      </div>
+      <!--end::Modal body-->
+    </div>
+    <!--end::Modal content-->
+  </div>
+
+  </form>
+  <!--end::Modal dialog *--------------------------------------------------------------------- -->
+</div>
+<!--end::Modal - Pillar Modal-->
+
+
+<script>
+  function deleteRecord(id){
+    if(confirm('هل انت متأكد من الحذف')){
+      window.location.href = '/admin/files/deleteAttachment/' + id;
+    }
+  }
+
+  function addFun() {
+    $('#fileUploadModal').modal('show');
+  }
+</script>
+</body>
+</html>
+
