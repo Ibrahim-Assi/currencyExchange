@@ -6,7 +6,11 @@ import com.ex.exceptions.ServiceResponse;
 import com.ex.exceptions.ServiceResult;
 import com.ex.models.dto.AttachmentFilesDTO;
 import com.ex.models.entities.AttachmentFiles;
+import com.ex.models.entities.FileReference;
+import com.ex.models.enums.EnBucketStorageName;
 import com.ex.repositories.gl.AttachmentFilesRepository;
+import com.ex.repositories.gl.FileReferenceRepository;
+import com.ex.services.api.ObjectStorageService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -26,6 +30,8 @@ import java.util.Random;
 public class AttachmentFilesServiceImpl implements AttachmentFilesService {
 
     private final AttachmentFilesRepository attachmentFilesRepository;
+    private final ObjectStorageService objectStorageService;
+    private final FileReferenceRepository fileReferenceRepository;
 
 
     @Value("${attachmentFiles.path}")
@@ -41,12 +47,14 @@ public class AttachmentFilesServiceImpl implements AttachmentFilesService {
                 attachmentEntity.setFileName(fileName);
                 attachmentEntity.setFileContentType(file.getContentType());
                 attachmentEntity.setFileSize(file.getSize());
-
-                AttachmentFiles savedFileEntity = attachmentFilesRepository.save(attachmentEntity);
-                Path filePath = Paths.get(AttachmentFilesPath, savedFileEntity.getId() + "" + new Random().nextInt(9000) + fileName.substring(fileName.lastIndexOf(".")));
-                Files.copy(file.getInputStream(), filePath);
-                attachmentEntity.setFilePath(filePath.toString());
+                attachmentEntity.setFileRefId(objectStorageService.uploadFile(EnBucketStorageName.ATTACHMENT_PROJECT, file));
                 attachmentFilesRepository.save(attachmentEntity);
+
+//                AttachmentFiles savedFileEntity = attachmentFilesRepository.save(attachmentEntity);
+//                Path filePath = Paths.get(AttachmentFilesPath, savedFileEntity.getId() + "" + new Random().nextInt(9000) + fileName.substring(fileName.lastIndexOf(".")));
+//                Files.copy(file.getInputStream(), filePath);
+//                attachmentEntity.setFilePath(filePath.toString());
+//                attachmentFilesRepository.save(attachmentEntity);
 
             return new ServiceResult("The file was saved successfully");
              
@@ -93,9 +101,18 @@ public class AttachmentFilesServiceImpl implements AttachmentFilesService {
             Optional<AttachmentFiles>  optionalFile  =   attachmentFilesRepository.findById(id);
             if (optionalFile.isPresent()) {
                 AttachmentFiles attachmentFile = optionalFile.get();
-                Path filePath = Paths.get(attachmentFile.getFilePath());
-                // Delete the file from the file system
-                Files.deleteIfExists(filePath);
+
+                Optional<FileReference> fileRef = fileReferenceRepository.findById(attachmentFile.getFileRefId());
+
+                if (fileRef.isPresent()) {
+                    FileReference fileReference = fileRef.get();
+                    objectStorageService.deleteFile(EnBucketStorageName.ATTACHMENT_PROJECT, fileReference.getObjectName());
+                }
+
+//                objectStorageService.deleteFile(EnBucketStorageName.ATTACHMENT_PROJECT, attachmentFile.get());
+//                Path filePath = Paths.get(attachmentFile.getFilePath());
+//                // Delete the file from the file system
+//                Files.deleteIfExists(filePath);
                 // Delete the file record from the database
                 attachmentFilesRepository.deleteById(id);
             }

@@ -30,5 +30,8 @@ public class AttachmentFiles  {
     @Column(name = "attachment_url", length = 500)
     private String attachmentUrl;
 
+    @Column(name = "file_ref_id")
+    private Long fileRefId;
+
 
 }

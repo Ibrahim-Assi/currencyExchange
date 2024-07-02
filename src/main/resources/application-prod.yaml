@@ -11,8 +11,8 @@ server:
 spring:
   # Oracle Configuration
   datasource:
-    url: jdbc:postgresql://localhost:5433/exDb
-    username: exUser
+    url: jdbc:postgresql://localhost:5432/exdb
+    username: exuser
     password: ex@2024
     driver-class-name: org.postgresql.Driver
     hikari:
@@ -35,7 +35,7 @@ spring:
       time: HH:mm
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         default_schema: ex_sch
@@ -73,6 +73,29 @@ springdoc:
     doc-expansion: false
     operationsSorter: alpha
     tagsSorter: alpha
+
+
+
+
+oci:
+  objectstorage:
+    namespace:
+    bucketName:
+    tenancyId:
+    userId:
+    fingerprint:
+    pemFilePath:
+
+#  region: uk-london-1
+#  tenancy: ocid1.tenancy.oc1..aaaaaaaat5gpz247yn6fhp7xw23yt4ghnymubvdqkc3jchtcsqmaeanqvgwq
+#  user: ocid1.user.oc1..aaaaaaaakoq4g2bpsqujft4h5cjwkaks6dw47stzy5hr4ywfbislheomqusa
+#  fingerprint: 3d:b7:d6:40:e9:d1:54:a5:a4:2f:03:04:f0:68:cc:f8
+#  privateKeyPath: classpath:private-key.pem
+#  bucketName: Attachment_Project
+#  namespace: lrsck9fucaye
+
+attachmentFiles:
+  path: C:\ex
 
 bank:
   excel:

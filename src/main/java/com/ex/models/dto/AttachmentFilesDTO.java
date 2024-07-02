@@ -15,6 +15,7 @@ public class AttachmentFilesDTO {
     private String filePath;
     private Long   fileSize;
     private String attachmentUrl;
+    private Long fileRefId;
 
 
 }
